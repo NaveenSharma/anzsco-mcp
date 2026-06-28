@@ -1,0 +1,16 @@
+{
+  "name": "anzsco-mcp",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker MCP server for anzsco.com.au — exposes ANZSCO occupation search to AI assistants",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "tail": "wrangler tail",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
+    "typescript": "^5.0.0",
+    "wrangler": "^3.0.0"
+  }
+}

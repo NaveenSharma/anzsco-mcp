@@ -1,0 +1,12 @@
+name               = "anzsco-mcp"
+main               = "src/index.ts"
+compatibility_date = "2024-09-23"
+account_id         = "<your-cf-account-id>"
+
+# Serve on workers.dev subdomain while testing
+workers_dev = true
+
+# Custom domain — uncomment after initial deploy and DNS is ready:
+# routes = [
+#   { pattern = "mcp.yourdomain.com/*", custom_domain = true }
+# ]
