@@ -3,6 +3,8 @@
 [![MCP](https://img.shields.io/badge/MCP-compatible-blue)](https://modelcontextprotocol.io)
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange)](https://workers.cloudflare.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/NaveenSharma/anzsco-mcp)](https://github.com/NaveenSharma/anzsco-mcp/releases)
+[![Glama](https://glama.ai/mcp/servers/NaveenSharma/anzsco-mcp/badges/score.svg)](https://glama.ai/mcp/servers/NaveenSharma/anzsco-mcp)
 
 > **Live endpoint**: `https://mcp.anzsco.com.au/` — no auth required, no install needed.
 
@@ -85,6 +87,14 @@ Restart Claude Desktop — you'll see ANZSCO tools available in the tool selecto
 
 ---
 
+## Claude Code (CLI) Integration
+
+```bash
+claude mcp add anzsco --transport http https://mcp.anzsco.com.au/
+```
+
+---
+
 ## curl Examples
 
 ```bash
@@ -102,10 +112,6 @@ curl -s -X POST "$MCP_URL/" -H "Content-Type: application/json" \
 curl -s -X POST "$MCP_URL/" -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"search_occupations","arguments":{"query":".net developer"}}}' | jq .
 
-# Get full details for 261312
-curl -s -X POST "$MCP_URL/" -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"get_occupation","arguments":{"code":"261312"}}}' | jq .
-
 # Visa pathway: can 261312 apply for 189?
 curl -s -X POST "$MCP_URL/" -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"get_visa_pathway","arguments":{"code":"261312","subclass":"189"}}}' | jq .
@@ -113,14 +119,6 @@ curl -s -X POST "$MCP_URL/" -H "Content-Type: application/json" \
 # Latest SkillSelect round
 curl -s -X POST "$MCP_URL/" -H "Content-Type: application/json" \
   -d '{"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"get_latest_skillselect_round","arguments":{}}}' | jq .
-
-# All occupations eligible for visa 491
-curl -s -X POST "$MCP_URL/" -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":7,"method":"tools/call","params":{"name":"search_by_visa","arguments":{"subclass":"491","limit":20}}}' | jq .
-
-# Compare developer codes
-curl -s -X POST "$MCP_URL/" -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":8,"method":"tools/call","params":{"name":"compare_occupations","arguments":{"codes":["261312","261313","261212"]}}}' | jq .
 ```
 
 ---
@@ -148,13 +146,9 @@ curl -s -X POST "$MCP_URL/" -H "Content-Type: application/json" \
 ```bash
 git clone https://github.com/NaveenSharma/anzsco-mcp.git
 cd anzsco-mcp
-
 npm install
-
-# Copy and configure wrangler
 cp wrangler.toml.example wrangler.toml
 # Edit wrangler.toml — set your account_id
-
 npm run deploy
 ```
 
@@ -197,8 +191,22 @@ ANZSCO database + SkillSelect data
 
 ## Listings
 
+- **Glama**: [glama.ai/mcp/servers/NaveenSharma/anzsco-mcp](https://glama.ai/mcp/servers/NaveenSharma/anzsco-mcp)
 - **Smithery**: [smithery.ai/server/anzsco-mcp](https://smithery.ai/server/anzsco-mcp) *(pending)*
 - **Docs / demo**: [anzsco.com.au/ai](https://anzsco.com.au/ai)
+
+---
+
+## Contributing
+
+Contributions welcome. The most useful additions are:
+
+- Updating occupation data when ANZSCO publishes new codes
+- Adding technology synonyms to `src/synonyms.ts`
+- Fixing SkillSelect round data as new rounds are published
+- Improving tool descriptions for better AI discoverability
+
+PRs and issues welcome at [github.com/NaveenSharma/anzsco-mcp](https://github.com/NaveenSharma/anzsco-mcp).
 
 ---
 
